@@ -1,0 +1,63 @@
+﻿@model ImportCars.ViewModels.DisplayVehicleSalesViewModel
+@*@model IEnumerable<ImportCars.ViewModels.VehicleSaleViewModel>*@
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h1>Import Car Sales</h1>
+    @using (Html.BeginForm("Index", "App", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-inline" }))
+    {
+        <div class="form-group">
+            <input type="file" name="postedFile" required />
+            <input class="" type="submit" value="Import" />
+        </div>
+    }
+
+    @if (Model != null && Model.Vehicles.Any())
+    {
+        <label id="mostSoldCar">Vehicle sold the most often: @Html.DisplayFor(modelItem => Model.VehicleMostSold)</label>
+
+        <div class="table-responsive-sm">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Deal Number</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Dealership Name</th>
+                        <th scope="col">Vehicle</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Vehicles)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DealNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DealershipName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Vehicle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
